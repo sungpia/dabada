@@ -1,0 +1,2 @@
+#!/usr/bin/env bash
+MGEN/mgen ipv4 interface en0 input local.mgn hostAddr on
