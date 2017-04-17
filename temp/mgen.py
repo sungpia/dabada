@@ -37,7 +37,7 @@ def main(argv):
 			time = arg
 	print "will expire after ", time, "seconds"
 	
-	run_cmd(["./a"], time).Run()
+	run_cmd(["mgen ipv4 interface enp4s0 input script.mgn hostAddr on"], time).Run()
 		
 
 if __name__ == "__main__":
