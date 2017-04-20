@@ -1,2 +1,0 @@
-#!/bin/sh
-MGEN/mgen ipv4 interface en0 input guideline.mgn hostAddr on

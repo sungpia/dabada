@@ -1,2 +1,0 @@
-#!/usr/bin/env bash
-mgen ipv4 interface enp4s0 input script.mgn hostAddr on

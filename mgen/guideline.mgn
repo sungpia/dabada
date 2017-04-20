@@ -1,5 +1,0 @@
-# Guideline for mgn.
-# Please refer https://downloads.pf.itd.nrl.navy.mil/docs/mgen/mgen.html#Protocol__UDP_TCP_SINK for details.
-# mgen ipv4 interface enp4s0 input script.mgn hostAddr on 
-
-#0.0 ON 1 UDP SRC 5001 DST 192.168.1.101/5001 PERIODIC [60000 500]

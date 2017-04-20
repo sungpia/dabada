@@ -1,7 +1,0 @@
-#!/usr/bin/env bash
-counter=0
-while [ $counter ]; do 
-    echo $counter
-    sleep 1 
-    let counter=counter+1
-done 
