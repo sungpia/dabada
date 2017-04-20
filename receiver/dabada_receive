@@ -1,0 +1,23 @@
+#!bin/bash
+
+# External disks mounted on:
+DIR=/mnt
+
+trap "ls"
+
+# Find ethernet name and use first ethernet interface.
+targetMAC="00:1e:06:32:52:1e"
+ethname="$(ifconfig | grep $targetMAC | awk '{print $1;}' | head -1)"
+
+if [ "$ethname" == "" ] ; then
+		echo "Ethernet not available."
+		exit
+	else 
+		echo "$ethname available."
+	fi
+
+# Set network promiscuous
+echo "ip link set $ethname promisc on"
+ip link set $ethname promisc on 
+
+
