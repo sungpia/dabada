@@ -3,7 +3,7 @@
 # External disks mounted on:
 DIR=/mnt
 
-trap "grep packets; exit;" SIGHUP SIGINT SIGTERM 
+# trap "grep packets; exit;" SIGHUP SIGINT SIGTERM 
 
 # tcpdump tcp -i eth0 -s0 -nn -q -w receive.pcap
 # Find ethernet name and use first ethernet interface. 
