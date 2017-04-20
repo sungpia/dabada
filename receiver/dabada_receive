@@ -3,21 +3,39 @@
 # External disks mounted on:
 DIR=/mnt
 
-trap "ls"
+trap "grep packets; exit;" SIGHUP SIGINT SIGTERM 
 
-# Find ethernet name and use first ethernet interface.
-targetMAC="00:1e:06:32:52:1e"
-ethname="$(ifconfig | grep $targetMAC | awk '{print $1;}' | head -1)"
+# tcpdump tcp -i eth0 -s0 -nn -q -w receive.pcap
+# Find ethernet name and use first ethernet interface. 
+
+#targetMAC="00:1e:06:32:52:1e"
+#targetMAC="80:e6:50:05:63:06"
+
+platform=`uname`
+if [ "$platform" == "Linux"] ; then
+	target_mac="$(ifconfig | grep Ethernet | awk '{print $5;}' | head -1)"
+else
+	target_mac="$(ifconfig | grep ether | awk '{print $2}' | head -1)"
+fi
+
+if [ "$target_mac" == "" ] ; then 
+	echo "MAC address not available."
+	exit
+else
+	echo "$target_mac available."
+fi
+
+ethname="$(ifconfig | grep $target_mac | awk '{print $1;}' | head -1)"
 
 if [ "$ethname" == "" ] ; then
-		echo "Ethernet not available."
-		exit
-	else 
-		echo "$ethname available."
-	fi
+	echo "Ethernet not available."
+	exit
+else 
+	echo "$ethname available."
+fi
 
 # Set network promiscuous
-echo "ip link set $ethname promisc on"
-ip link set $ethname promisc on 
+# echo "ip link set $ethname promisc on"
+# ip link set $ethname promisc on 
 
 
