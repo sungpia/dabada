@@ -10,6 +10,12 @@ DIR=/mnt
 #targetMAC="00:1e:06:32:52:1e"
 #targetMAC="80:e6:50:05:63:06"
 
+# $1 method
+# $2 pps 
+# $3 packet size
+# $4 sec 
+pps=$2
+sec=$4
 target_mac="$(ifconfig | grep Ethernet | awk '{print $5;}' | head -1)"
 
 if [ "$target_mac" == "" ] ; then 
@@ -22,12 +28,20 @@ fi
 ethname="$(ifconfig | grep $target_mac | awk '{print $1;}' | head -1)"
 
 if [ "$ethname" == "" ] ; then
-	echo "Ethernet not available."
+	echo "RECEIVER: Ethernet not available."
 	exit
 else 
-	echo "$ethname available."
+	echo "RECEIVER: $ethname available."
 fi
 
+echo "RECEIVER: run tcpdump" 
+sudo tcpdump -i $ethname -s0 -nn -q -c $((pps * sec)) -w tes.pcap
+
+# grep packets ex | while read -r line ; do 
+#	echo $line | awk '{print $1}'
+#done
+
+echo $1 $2 $3 $4
 # Set network promiscuous
 # echo "ip link set $ethname promisc on"
 # ip link set $ethname promisc on 
