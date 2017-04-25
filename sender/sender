@@ -22,15 +22,19 @@ do
   sec=$(echo $line | awk '{print $5}')
 
   echo "SENDER: USING ${method} to send to ${ip_and_port} for ${sec} seconds\b\tpps=${pps}, packet size=${packet_size}"
-  echo "SENDER: init recieve side"
+  echo "SENDER: init recieve side with args: ${method} ${pps} ${packet_size} ${sec}"
 
-  ssh -t odroid@192.168.0.14 '~/Documents/dabada/receiver/dabada_receive' $method $pps $packet_size $sec
+  ssh -t root@192.168.0.14 '~/dabada/receiver/receiver' $method $pps $packet_size $sec &
+  sleep 1
+  echo "SENDER: h"
   if [ $method == "MGEN" ] ; then
     echo "0.0 ON 1 UDP SRC 5001 DST ${ip_and_port} COUNT $((sec * pps)) PERIODIC [${pps} ${packet_size}]" > tmp.mgn
   fi 
   mgen ipv4 interface $ethname input tmp.mgn hostAddr on 
   echo "SENDER: Done."
-  sleep 5
+ 
+  echo "SENDER: Sleeping for 20 sec" 
+  sleep 20
 done
 
 rm ./tmp.mgn
