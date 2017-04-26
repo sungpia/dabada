@@ -1,6 +1,6 @@
 #!/bin/bash
 
-DIR=/mnt
+DIR=/mnt/ssd
 
 # trap "grep packets; exit;" SIGHUP SIGINT SIGTERM 
 
@@ -37,13 +37,13 @@ else
 fi
 
 echo "RECEIVER: run tcpdump -i ${ethname} -s0 -nn -q -c $((pps*sec)) -w fname" 
-sudo timeout $((sec+5)) tcpdump -i $ethname -s0 -nn -q -w ~/dabada/capture-${pps}-${packet_size}-${sec}-`date +"%Y-%m-%d-%H%M%S"`.pcap > ~/dabada/summary-${pps}-${packet_size}-${sec}-`date +"%Y-%m-%d-%H%M%S"` 2>&1  
+sudo timeout $((sec+30)) tcpdump -i $ethname -s0 -nn -q -w $DIR/capture-${pps}-${packet_size}-${sec}-`date +"%Y-%m-%d-%H%M%S"`.pcap > $DIR/summary-${pps}-${packet_size}-${sec}-`date +"%Y-%m-%d-%H%M%S"` 2>&1  
+sleep 5
 #grep packets ./summary | while read -r line ; do 
 #  echo $line | awk '{print $1}' >> temp
 #done
 echo "RECEIVER: done tcpdump"
 # Set network promiscuous
-# echo "ip link set $ethname promisc on"
-# ip link set $ethname promisc on 
-
+# euuuucho "ip link set $ethname promisc on"
+#uu ip link set $ethname promisc on 
 
