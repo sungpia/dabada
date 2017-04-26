@@ -1,6 +1,6 @@
 #!/bin/bash
 
-DIR=/mnt/ssd
+DIR=$5
 
 # trap "grep packets; exit;" SIGHUP SIGINT SIGTERM 
 
