@@ -1,0 +1,5 @@
+tcpdump: listening on enx001e0630045c, link-type EN10MB (Ethernet), capture size 262144 bytes
+
+154697 packets captured
+250021 packets received by filter
+95324 packets dropped by kernel
