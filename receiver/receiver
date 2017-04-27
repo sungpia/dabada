@@ -37,7 +37,11 @@ else
 fi
 
 echo "RECEIVER: run tcpdump -i ${ethname} -s0 -nn -q -c $((pps*sec)) -w fname" 
-sudo timeout $((sec+30)) tcpdump -i $ethname -s0 -nn -q -w $DIR/capture-${pps}-${packet_size}-${sec}-`date +"%Y-%m-%d-%H%M%S"`.pcap > $DIR/summary-${pps}-${packet_size}-${sec}-`date +"%Y-%m-%d-%H%M%S"` 2>&1  
+
+#TODO(sungpia@me.com): find better way for detecting env and running appropriate command.
+#sudo timeout $((sec+30)) tcpdump -i $ethname -s0 -nn -q -w $DIR/capture-${pps}-${packet_size}-${sec}-`date +"%Y-%m-%d-%H%M%S"`.pcap > $DIR/summary-${pps}-${packet_size}-${sec}-`date +"%Y-%m-%d-%H%M%S"` 2>&1  
+sudo timeout $((sec+30)) tcpdump -i $ethname -s 1518 -nn -q -w $DIR/capture-${pps}-${packet_size}-${sec}-`date +"%Y-%m-%d-%H%M%S"`.pcap > $DIR/summary-${pps}-${packet_size}-${sec}-`date +"%Y-%m-%d-%H%M%S"` 2>&1
+
 sleep 5
 #grep packets ./summary | while read -r line ; do 
 #  echo $line | awk '{print $1}' >> temp
